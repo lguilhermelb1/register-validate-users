@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -16,7 +17,8 @@ import { UsersModule } from './users/users.module';
     logging: false,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
   }),
-    UsersModule
+    UserModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
