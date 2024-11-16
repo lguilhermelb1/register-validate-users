@@ -8,6 +8,11 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Users')
     .setDescription('Users Test API')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      in: 'header',
+    })
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, documentFactory);
