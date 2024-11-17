@@ -15,8 +15,4 @@ export class CreateUserDto {
     @IsString({ message: 'Password must be a string' })
     @Length(6, 100, { message: 'Password must be longer than or equal to 6 and shorter than or equal to 100 characters' })
     readonly password: string;
-
-    readonly createdAt?: string;
-
-    readonly updatedAt?: string;
 }

@@ -52,11 +52,20 @@ export class UserService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateUser(id: string, updateUserDto: UpdateUserDto) {
+    var password = updateUserDto.password;
+    if (password == null || password == '') {
+      const currentPassword = (await this.findUserById(id)).password;
+      password = currentPassword;
+    }
+    const hashPassword = await bcrypt.hash(password, 10)
+
+    const updatedUser = await this.userRepository.update(id, { ...updateUserDto, password: hashPassword, updatedAt: new Date(Date.now()) });
+    return updatedUser;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async deleteUser(id: string) {
+    await this.userRepository.delete(id);
+    return `User with UUID: ${id} deleted`;
   }
 }
